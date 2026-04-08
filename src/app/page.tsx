@@ -58,6 +58,14 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-center gap-4 text-xs text-[#8892a4] pb-8">
+            <a href="https://github.com/ipfsnut/wip-code" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              GitHub
+            </a>
+          </div>
+        </div>
       </main>
     </div>
   );
