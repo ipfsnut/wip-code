@@ -28,6 +28,7 @@ export const config = createConfig({
   chains: [base],
   transports: {
     [base.id]: fallback([
+      http("https://base-mainnet.g.alchemy.com/v2/518Fe6U9g0rlJj0Sd5O_0", { batch: false }),
       http("https://base.llamarpc.com", { batch: false }),
       http("https://base.drpc.org", { batch: false }),
       http("https://base-rpc.publicnode.com", { batch: false }),
