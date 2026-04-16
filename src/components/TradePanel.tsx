@@ -281,7 +281,14 @@ export function TradePanel() {
             const bal = isNativeEthBuy ? ethData?.value : spendBalance as bigint | undefined;
             return (
               <button key={pct} disabled={!bal || step !== "input"}
-                onClick={() => { if (bal) setAmount(formatUnits(pct === 100 ? bal : bal * BigInt(pct) / 100n, spendDecimals)); }}
+                onClick={() => {
+                  if (!bal) return;
+                  const val = pct === 100 ? bal : bal * BigInt(pct) / 100n;
+                  const raw = formatUnits(val, spendDecimals);
+                  const maxDp = spendDecimals <= 6 ? spendDecimals : 6;
+                  const num = Number(raw);
+                  setAmount(num % 1 === 0 ? num.toString() : num.toFixed(maxDp).replace(/0+$/, "").replace(/\.$/, ""));
+                }}
                 className="flex-1 py-1 text-xs rounded bg-[#1a1a2e] text-[#8892a4] hover:text-white disabled:opacity-30"
               >{pct}%</button>
             );
