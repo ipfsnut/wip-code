@@ -4,7 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { SignInButton, useProfile } from "@farcaster/auth-kit";
 import Link from "next/link";
 
-export function Nav({ active }: { active: "home" | "stake" }) {
+export function Nav({ active }: { active: "home" | "trade" | "stake" }) {
   const { isAuthenticated, profile } = useProfile();
 
   return (
@@ -14,6 +14,9 @@ export function Nav({ active }: { active: "home" | "stake" }) {
         <div className="flex gap-4 text-sm">
           <Link href="/" className={active === "home" ? "text-[#f59e0b] font-medium" : "text-[#8892a4] hover:text-white transition-colors"}>
             Home
+          </Link>
+          <Link href="/trade" className={active === "trade" ? "text-[#f59e0b] font-medium" : "text-[#8892a4] hover:text-white transition-colors"}>
+            Trade
           </Link>
           <Link href="/stake" className={active === "stake" ? "text-[#f59e0b] font-medium" : "text-[#8892a4] hover:text-white transition-colors"}>
             Stake

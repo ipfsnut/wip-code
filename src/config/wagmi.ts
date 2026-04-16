@@ -9,6 +9,7 @@ import {
 } from "@rainbow-me/rainbowkit/wallets";
 import { base } from "wagmi/chains";
 import { http, fallback, createConfig } from "wagmi";
+import { safe } from "wagmi/connectors";
 
 const PROJECT_ID = "2efb2aeae04a72cb733a24ae9efaaf0e";
 
@@ -23,7 +24,7 @@ const connectors = connectorsForWallets(
 );
 
 export const config = createConfig({
-  connectors,
+  connectors: [...connectors, safe({ allowedDomains: [/safe\.global$/] })],
   chains: [base],
   transports: {
     [base.id]: fallback([
