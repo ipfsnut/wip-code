@@ -12,9 +12,9 @@ export default function Home() {
       <main className="flex-1 flex items-start justify-center pt-12 px-4">
         <div className="w-full max-w-md space-y-6">
           <div>
-            <h1 className="text-2xl font-bold text-white">$WIP</h1>
+            <h1 className="text-2xl font-bold text-white">WIPcoin</h1>
             <p className="text-sm text-[#8892a4]">
-              Stake WIP. Earn rewards.
+              Trade and stake $WIP on Base.
             </p>
             <div className="mt-2 flex items-center gap-2 text-xs text-[#8892a4] bg-[#0d1117] rounded-lg px-3 py-2 border border-[#2a2a3e]">
               <span>WIP:</span>
@@ -30,18 +30,30 @@ export default function Home() {
             </div>
           </div>
 
-          <Link
-            href="/stake"
-            className="block w-full py-3 rounded-lg bg-[#f59e0b] text-black font-medium text-center hover:bg-[#d97706] transition-colors"
-          >
-            Stake $WIP
-          </Link>
+          <div className="flex gap-3">
+            <Link
+              href="/trade"
+              className="flex-1 py-3 rounded-lg bg-[#f59e0b] text-black font-medium text-center hover:bg-[#d97706] transition-colors"
+            >
+              Trade $WIP
+            </Link>
+            <Link
+              href="/stake"
+              className="flex-1 py-3 rounded-lg bg-[#1a1a2e] text-white font-medium text-center border border-[#2a2a3e] hover:border-[#f59e0b]/50 transition-colors"
+            >
+              Stake $WIP
+            </Link>
+          </div>
 
           {/* Contracts */}
           <div className="bg-[#0d1117] rounded-xl p-4 border border-[#2a2a3e] space-y-2 text-xs">
             <div className="text-[#8892a4] font-medium mb-2">Verified Contracts (Base)</div>
             {[
               { label: "WIP Token", addr: ADDRESSES.wip },
+              { label: "WIP / USDC (1%)", addr: ADDRESSES.hookUsdc },
+              { label: "WIP / WETH (2%)", addr: ADDRESSES.hookWeth },
+              { label: "WIP / Clanker (2%)", addr: ADDRESSES.hookClanker },
+              { label: "WIP / TRINI (2%)", addr: ADDRESSES.hookTrini },
               { label: "Staking Hub", addr: ADDRESSES.stakingHub },
             ].map((c) => (
               <div key={c.addr} className="flex justify-between items-center">

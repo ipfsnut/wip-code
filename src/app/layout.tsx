@@ -6,8 +6,8 @@ import "./globals.css";
 const mono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "WIP Staking",
-  description: "Stake $WIP, earn rewards.",
+  title: "WIPcoin",
+  description: "Trade and stake $WIP on Base.",
 };
 
 export default function RootLayout({

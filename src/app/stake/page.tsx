@@ -166,7 +166,7 @@ export default function StakePage() {
           <div>
             <h1 className="text-2xl font-bold text-white">Stake WIP</h1>
             <p className="text-sm text-[#8892a4]">
-              Stake $WIP to earn rewards (when funded by multisig).
+              Stake $WIP to earn rewards.
             </p>
           </div>
 
