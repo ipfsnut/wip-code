@@ -28,11 +28,11 @@ export const config = createConfig({
   chains: [base],
   transports: {
     [base.id]: fallback([
-      http("https://mainnet.base.org", { batch: false }),
       http("https://base.llamarpc.com", { batch: false }),
       http("https://base.drpc.org", { batch: false }),
       http("https://base-rpc.publicnode.com", { batch: false }),
       http("https://1rpc.io/base", { batch: false }),
+      http("https://mainnet.base.org", { batch: false }),
     ]),
   },
   ssr: false,
