@@ -23,18 +23,22 @@ const connectors = connectorsForWallets(
   { appName: "WIP Staking", projectId: PROJECT_ID }
 );
 
+const alchemyRpc = process.env.NEXT_PUBLIC_ALCHEMY_RPC;
+
+const rpcs = [
+  ...(alchemyRpc ? [http(alchemyRpc, { batch: false })] : []),
+  http("https://base.llamarpc.com", { batch: false }),
+  http("https://base.drpc.org", { batch: false }),
+  http("https://base-rpc.publicnode.com", { batch: false }),
+  http("https://1rpc.io/base", { batch: false }),
+  http("https://mainnet.base.org", { batch: false }),
+];
+
 export const config = createConfig({
   connectors: [...connectors, safe({ allowedDomains: [/safe\.global$/] })],
   chains: [base],
   transports: {
-    [base.id]: fallback([
-      http("https://base-mainnet.g.alchemy.com/v2/518Fe6U9g0rlJj0Sd5O_0", { batch: false }),
-      http("https://base.llamarpc.com", { batch: false }),
-      http("https://base.drpc.org", { batch: false }),
-      http("https://base-rpc.publicnode.com", { batch: false }),
-      http("https://1rpc.io/base", { batch: false }),
-      http("https://mainnet.base.org", { batch: false }),
-    ]),
+    [base.id]: fallback(rpcs),
   },
   ssr: false,
 });
