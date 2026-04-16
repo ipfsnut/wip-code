@@ -54,7 +54,7 @@ export function TradePanel() {
   const [step, setStep] = useState<Step>("input");
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [slippageBps, setSlippageBps] = useState(200);
+  const [slippageBps] = useState(100); // 1% default, UI hidden for simplicity
   const [quoteOut, setQuoteOut] = useState<bigint | null>(null);
   const [quoteFailed, setQuoteFailed] = useState(false);
   const [safeSuccess, setSafeSuccess] = useState<string | null>(null);
@@ -298,13 +298,8 @@ export function TradePanel() {
               <div className="text-white text-xl font-mono">{fmt(quoteOut, outDecimals, 4)} {outSymbol}</div>
             </div>
           )}
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-[#8892a4]">Slippage:</span>
-            {[100, 200, 500].map((bps) => (
-              <button key={bps} onClick={() => setSlippageBps(bps)}
-                className={`px-2 py-0.5 rounded text-xs ${slippageBps === bps ? "bg-[#f59e0b] text-black" : "bg-[#0d1117] text-[#8892a4] hover:text-white"}`}
-              >{bps / 100}%</button>
-            ))}
+          <div className="text-xs text-[#8892a4]">
+            Slippage: {slippageBps / 100}%
           </div>
         </div>
       )}
