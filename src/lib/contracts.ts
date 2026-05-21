@@ -5,11 +5,11 @@ export const ADDRESSES = {
   wip: "0xE21ec3068a538a064FF0BdD69db0204306fc00a0" as `0x${string}`,
   stakingHub: "0xF402f09C67cb85A1aB002733B72dA8c0B075f318" as `0x${string}`,
   multisig: "0x13a41Ee5ED0b3150e0db1Fd9156D5359c03699B1" as `0x${string}`,
-  // V8 hooks (deployed 2026-04-16)
-  hookUsdc: "0x1497c6fa188daf7ef1c567392b235829277e0888" as `0x${string}`,
-  hookWeth: "0xdfe40d764f72ef4cbf823b71486d30a0ba188888" as `0x${string}`,
-  hookClanker: "0x3d439AfC898529eD5216F517b76Ca4f8D93E8888" as `0x${string}`,
-  hookTrini: "0x90862F197B7b7DaEF68fAB648b28f55f08924888" as `0x${string}`,
+  // V9 hooks (deployed 2026-05-14)
+  hookUsdc: "0xB059db5F836250cf15BA3AA537a7A9EaAF9E5840" as `0x${string}`,
+  hookWeth: "0x8316dD657bF75B7509Cf2299d6e1dF6291c89840" as `0x${string}`,
+  hookClanker: "0x14226f7fB936abEAb466d8743f19c7Fc56D29840" as `0x${string}`,
+  hookTrini: "0x603C68e5B0AFC0D54A59F7F7d9654833d9885840" as `0x${string}`,
   // Quote assets
   usdc: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as `0x${string}`,
   weth: "0x4200000000000000000000000000000000000006" as `0x${string}`,
@@ -22,14 +22,14 @@ export const ADDRESSES = {
 } as const;
 
 export const WIP_HOOKS = [
-  { label: "WIP / USDC", hook: ADDRESSES.hookUsdc, quote: ADDRESSES.usdc, quoteSymbol: "USDC", quoteDecimals: 6, feePct: "1%", wipAmount: 675_000_000n * 10n ** 18n, wipAmountLabel: "675M" },
-  { label: "WIP / WETH", hook: ADDRESSES.hookWeth, quote: ADDRESSES.weth, quoteSymbol: "WETH", quoteDecimals: 18, feePct: "2%", wipAmount: 135_000_000n * 10n ** 18n, wipAmountLabel: "135M" },
-  { label: "WIP / Clanker", hook: ADDRESSES.hookClanker, quote: ADDRESSES.clanker, quoteSymbol: "CLANKER", quoteDecimals: 18, feePct: "2%", wipAmount: 81_000_000n * 10n ** 18n, wipAmountLabel: "81M" },
-  { label: "WIP / TRINI", hook: ADDRESSES.hookTrini, quote: ADDRESSES.trini, quoteSymbol: "TRINI", quoteDecimals: 18, feePct: "2%", wipAmount: 9_000_000n * 10n ** 18n, wipAmountLabel: "9M" },
+  { label: "WIP / USDC", hook: ADDRESSES.hookUsdc, quote: ADDRESSES.usdc, quoteSymbol: "USDC", quoteDecimals: 6, feePct: "1%", wipAmount: 125_000_000n * 10n ** 18n, wipAmountLabel: "125M" },
+  { label: "WIP / WETH", hook: ADDRESSES.hookWeth, quote: ADDRESSES.weth, quoteSymbol: "WETH", quoteDecimals: 18, feePct: "2%", wipAmount: 125_000_000n * 10n ** 18n, wipAmountLabel: "125M" },
+  { label: "WIP / Clanker", hook: ADDRESSES.hookClanker, quote: ADDRESSES.clanker, quoteSymbol: "CLANKER", quoteDecimals: 18, feePct: "2%", wipAmount: 125_000_000n * 10n ** 18n, wipAmountLabel: "125M" },
+  { label: "WIP / TRINI", hook: ADDRESSES.hookTrini, quote: ADDRESSES.trini, quoteSymbol: "TRINI", quoteDecimals: 18, feePct: "2%", wipAmount: 10_000_000n * 10n ** 18n, wipAmountLabel: "10M" },
 ] as const;
 
 export function makeWipPoolKey(quoteAddr: `0x${string}`, hookAddr: `0x${string}`) {
-  return { currency0: quoteAddr, currency1: ADDRESSES.wip, fee: 0, tickSpacing: 200, hooks: hookAddr } as const;
+  return { currency0: quoteAddr, currency1: ADDRESSES.wip, fee: 0x800000, tickSpacing: 200, hooks: hookAddr } as const;
 }
 
 // ── ABIs ────────────────────────────────────────────────────────────
@@ -57,7 +57,7 @@ export const stakingHubAbi = parseAbi([
   "function extraRewardsLength() view returns (uint256)",
 ]);
 
-export const hookV8Abi = parseAbi([
+export const hookV9Abi = parseAbi([
   "function owner() view returns (address)",
   "function token() view returns (address)",
   "function feeBps() view returns (uint256)",

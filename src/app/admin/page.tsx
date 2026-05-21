@@ -7,7 +7,7 @@ import { formatUnits, encodeFunctionData } from "viem";
 import { Nav } from "@/components/Nav";
 import {
   ADDRESSES, WIP_HOOKS,
-  hookV8Abi, wipTokenAbi, makeWipPoolKey,
+  hookV9Abi, wipTokenAbi, makeWipPoolKey,
 } from "@/lib/contracts";
 import { useIsSafe, waitForTx } from "@/lib/safe";
 import { useSearchParams } from "next/navigation";
@@ -59,12 +59,12 @@ function AdminPage() {
       WIP_HOOKS.map(async (h) => {
         try {
           const [owner, initialized, seeded, liquidity, tickLower, tickUpper, wipInHook] = await Promise.all([
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "owner" }),
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "initialized" }),
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "seeded" }),
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "liquidity" }),
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "tickLower" }),
-            publicClient.readContract({ address: h.hook, abi: hookV8Abi, functionName: "tickUpper" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "owner" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "initialized" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "seeded" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "liquidity" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "tickLower" }),
+            publicClient.readContract({ address: h.hook, abi: hookV9Abi, functionName: "tickUpper" }),
             publicClient.readContract({ address: ADDRESSES.wip, abi: wipTokenAbi, functionName: "balanceOf", args: [h.hook] }),
           ]);
           return {
@@ -115,7 +115,7 @@ function AdminPage() {
       setLoading(l => ({ ...l, [idx]: "Seeding liquidity..." }));
       const key = makeWipPoolKey(h.quote, h.hook);
       await sendTx(h.hook, encodeFunctionData({
-        abi: hookV8Abi, functionName: "addLiquidity",
+        abi: hookV9Abi, functionName: "addLiquidity",
         args: [[key.currency0, key.currency1, key.fee, key.tickSpacing, key.hooks]],
       }));
 
@@ -135,7 +135,7 @@ function AdminPage() {
       setLoading(l => ({ ...l, [idx]: "Emergency withdrawing..." }));
       const key = makeWipPoolKey(h.quote, h.hook);
       await sendTx(h.hook, encodeFunctionData({
-        abi: hookV8Abi, functionName: "emergencyWithdraw",
+        abi: hookV9Abi, functionName: "emergencyWithdraw",
         args: [[key.currency0, key.currency1, key.fee, key.tickSpacing, key.hooks]],
       }));
       setSuccesses(s => ({ ...s, [idx]: isSafe ? "Submitted to Safe — check your Safe app for confirmation." : "Withdrawn to owner" }));
@@ -178,7 +178,7 @@ function AdminPage() {
               )}
             </div>
             <p className="text-sm text-[#8892a4] mt-1">
-              Manage the V8 continuous-curve hooks for $WIP. Only the Safe owner can execute transactions.
+              Manage the V9 continuous-curve hooks for $WIP. Only the Safe owner can execute transactions.
             </p>
           </div>
 
